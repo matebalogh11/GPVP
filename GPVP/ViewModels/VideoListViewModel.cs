@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GPVP.Services;
 using GPVP.ViewModels.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace GPVP.ViewModels
     {
         public string Name { get => "Videos"; }
  
-        
+        private IVideoService videoService;
+        public VideoListViewModel()
+        {
+            videoService = new AwEmpireApiVideoService();
+            videoService.GetVideos();
+        }
     }
 }
