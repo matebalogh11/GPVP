@@ -22,10 +22,11 @@
     <Style TargetType="{x:Type Button}" x:Key="BtnStyle">
         <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
         <Setter Property="Foreground" Value="{StaticResource BckgrndColor}" />
-        <Setter Property="MaxWidth" Value="100" />
-        <Setter Property="MaxHeight" Value="50" />
+        <Setter Property="MaxWidth" Value="200" />
+        <Setter Property="MaxHeight" Value="80" />
         <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="Padding" Value="14,4,14,4" />
+        <Setter Property="FontSize" Value="{StaticResource FontHeightMid}" />
     </Style>
 
 </ResourceDictionary>

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GPVP.ViewModels
+namespace GPVP.ViewModels.Interfaces
 {
-    public class MainWindowModel
+    public interface IPageViewModel
     {
-
-
+        string Name { get; }
     }
 }

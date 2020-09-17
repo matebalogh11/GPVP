@@ -16,7 +16,10 @@ namespace GPVP
 
         private void InitWindow()
         {
-            Current.MainWindow = new Views.MainWindow(new ViewModels.MainWindowModel());
+            var mainWindow = new Views.ApplicationView();
+            mainWindow.DataContext = new ViewModels.ApplicationViewModel();
+
+            Current.MainWindow = mainWindow;
             Current.MainWindow.Title = Displayresource.AppName;
             Current.MainWindow.Show();
         }
