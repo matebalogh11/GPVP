@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GPVP.Views"
         xmlns:vm="clr-namespace:GPVP.ViewModels"
         mc:Ignorable="d"
-        Title="ApplicationView" Height="450" Width="800">
+        Title="ApplicationView" Height="900" Width="1800">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:HomeViewModel}">
             <local:HomeView />

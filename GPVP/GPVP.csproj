@@ -76,7 +76,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Video.cs" />
+    <Compile Include="Entities\VideoPage.cs" />
     <Compile Include="Services\AwEmpireApiVideoService.cs" />
     <Compile Include="Services\BasicIPService.cs" />
     <Compile Include="Services\IAddressService.cs" />

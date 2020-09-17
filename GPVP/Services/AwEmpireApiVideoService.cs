@@ -13,9 +13,13 @@ namespace GPVP.Services
 {
     public class AwEmpireApiVideoService : IVideoService
     {
+        #region Fields
+
         private HttpClient client;
         string apiString;
         IAddressService ipService;
+
+        #endregion
 
         public AwEmpireApiVideoService()
         {
@@ -32,14 +36,19 @@ namespace GPVP.Services
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public  Video GetVideoById(long id)
+        #region Interface
+
+        public Video GetVideoById(long id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Video>> GetVideos()
+        public async Task<VideoPage> GetVideos( int pageNumber = 1)
         {
-            HttpResponseMessage response = await client.GetAsync(apiString);
+            var result = new VideoPage();
+            var configuredString = configureApiString(pageNumber);
+
+            HttpResponseMessage response = await client.GetAsync(configuredString);
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
@@ -47,10 +56,22 @@ namespace GPVP.Services
 
                 JObject data = (JObject)jObject["data"];
                 JArray videos = (JArray)data["videos"];
+                var page = data["pagination"];
 
-                return JsonConvert.DeserializeObject<Video[]>(videos.ToString());
+                result.Videos = JsonConvert.DeserializeObject<Video[]>(videos.ToString());
+                result.Pagination = JsonConvert.DeserializeObject<Page>(page.ToString());
+                return result;
             }
-            return new List<Video>();
+            return result;
         }
+
+        private string configureApiString( int pageNumber = 1 )
+        {
+            apiString = $"{apiString}&pageIndex={pageNumber}";
+
+            return apiString;
+        }
+
+        #endregion
     }
 }

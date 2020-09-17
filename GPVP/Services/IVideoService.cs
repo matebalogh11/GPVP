@@ -11,7 +11,7 @@ namespace GPVP.Services
     {
         Video GetVideoById(long id);
 
-        Task<IEnumerable<Video>> GetVideos();
+        Task<VideoPage> GetVideos( int pageNumber );
 
     }
 }

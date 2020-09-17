@@ -35,15 +35,31 @@
     <Grid Background="{StaticResource BckgrndColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock HorizontalAlignment="Center" Text="Video list" Style="{StaticResource BaseTextBlock}"/>
-        <ListBox Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="←" Background="Transparent" Command="{Binding ChangePageCommand}" CommandParameter="p" IsEnabled="{Binding PrevBtnEnabled}"/>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10,0,10,0">
+                <TextBlock Text="Page: "/>
+                <TextBlock Text="{Binding PageNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="/"/>
+                <TextBlock Text="{Binding TotalPages, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Button Content="→" Grid.Column="2" Background="Transparent" Command="{Binding ChangePageCommand}" CommandParameter="n" IsEnabled="{Binding NextBtnEnabled}"/>
+        </Grid>
+        <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  ItemsSource="{Binding VideoList, UpdateSourceTrigger=PropertyChanged}"
                  ItemTemplate="{StaticResource VideoItemTemplate}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical"/>
+                    <UniformGrid Columns="3"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
