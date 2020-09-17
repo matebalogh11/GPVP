@@ -1,4 +1,6 @@
 ﻿using GPVP.Entities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,13 +39,18 @@ namespace GPVP.Services
 
         public async Task<IEnumerable<Video>> GetVideos()
         {
-            IEnumerable<Video> result;
             HttpResponseMessage response = await client.GetAsync(apiString);
             if (response.IsSuccessStatusCode)
             {
-                var chek = await response.Content.ReadAsStringAsync();
+                var responseString = await response.Content.ReadAsStringAsync();
+                JObject jObject = JObject.Parse(responseString);
+
+                JObject data = (JObject)jObject["data"];
+                JArray videos = (JArray)data["videos"];
+
+                return JsonConvert.DeserializeObject<Video[]>(videos.ToString());
             }
-            throw new NotImplementedException();
+            return new List<Video>();
         }
     }
 }

@@ -23,7 +23,8 @@
                         <Button Content="{Binding Name}"
                                 Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                 CommandParameter="{Binding }"
-                                Margin="2,5"/>
+                                Margin="2,5"
+                                Style="{StaticResource BtnStyle}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

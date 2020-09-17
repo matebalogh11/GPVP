@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:GPVP.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="{StaticResource BckgrndColor}">
+        <TextBlock Text="GPVP Home page" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
     </Grid>
 </UserControl>

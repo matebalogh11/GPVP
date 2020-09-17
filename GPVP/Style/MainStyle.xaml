@@ -28,5 +28,12 @@
         <Setter Property="Padding" Value="14,4,14,4" />
         <Setter Property="FontSize" Value="{StaticResource FontHeightMid}" />
     </Style>
+    
+    <!--textblock styles-->
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontHeightMid}" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
 
 </ResourceDictionary>

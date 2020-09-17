@@ -1,26 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GPVP.Entities
 {
     public class Video
     {
-        public string id { get; set; }
-        public string title { get; set; }
-        public int duration { get; set; }
-        public string[] tags { get; set; }
-        public string profileImage { get; set; }
-        public string coverImage { get; set; }
-        public string[] previewImages { get; set; }
-        public string targetUrl { get; set; }
-        public string detailsUrl { get; set; }
-        public string quality { get; set; }
-        public bool isHd { get; set; }
-        public string uploader { get; set; }
-        public string uploaderLink { get; set; }
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public int Duration { get; set; }
+        public string[] Tags { get; set; }
+        public string ProfileImage { get; set; }
+        public string CoverImage { get; set; }
+        public string[] PreviewImages { get; set; }
+        public string TargetUrl { get; set; }
+        public string DetailsUrl { get; set; }
+        public string Quality { get; set; }
+        public bool IsHd { get; set; }
+        public string Uploader { get; set; }
+        public string UploaderLink { get; set; }
+
+        public Uri Thumbnail
+        {
+            get 
+            {
+                var chexk = new Uri(PreviewImages[0], UriKind.RelativeOrAbsolute);
+                if (PreviewImages.Length > 0)
+                {
+                    string asd = "http://www." + PreviewImages[0].Substring(2);
+                    return new Uri(asd, UriKind.Absolute);
+                }
+
+                return null;
+            }
+        }
     }
 
 }
