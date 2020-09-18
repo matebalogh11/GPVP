@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GPVP.Views"
+      xmlns:controls="clr-namespace:GPVP.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -37,9 +38,29 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" Text="Video list" Style="{StaticResource BaseTextBlock}"/>
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
+        
+        <controls:FilterControl FirstFilterValue="Video quality: "
+                                FirstFilterSource="{Binding VideoQualityList}"
+                                FirstComboValue="{Binding SelectedQuality, Mode=TwoWay}"
+                                SecondComboValue="{Binding SelectedDuration, Mode=TwoWay}"
+                                SecondFilterSource="{Binding DurationList}"
+                                SecondFilterValue="Duration: "
+                                TagFilterList="{Binding VideoTagList}"
+                                TagsVisible="{Binding TagsVisible}"/>
+        
+        <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                 ItemsSource="{Binding VideoList, UpdateSourceTrigger=PropertyChanged}"
+                 ItemTemplate="{StaticResource VideoItemTemplate}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <Grid  HorizontalAlignment="Center" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -54,14 +75,5 @@
             </StackPanel>
             <Button Content="→" Grid.Column="2" Background="Transparent" Command="{Binding ChangePageCommand}" CommandParameter="n" IsEnabled="{Binding NextBtnEnabled}"/>
         </Grid>
-        <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                 ItemsSource="{Binding VideoList, UpdateSourceTrigger=PropertyChanged}"
-                 ItemTemplate="{StaticResource VideoItemTemplate}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Columns="3"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
     </Grid>
 </UserControl>

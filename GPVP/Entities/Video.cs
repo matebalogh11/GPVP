@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GPVP.Entities
 {
@@ -7,7 +8,7 @@ namespace GPVP.Entities
         public string Id { get; set; }
         public string Title { get; set; }
         public int Duration { get; set; }
-        public string[] Tags { get; set; }
+        public IEnumerable<string> Tags { get; set; }
         public string ProfileImage { get; set; }
         public string CoverImage { get; set; }
         public string[] PreviewImages { get; set; }

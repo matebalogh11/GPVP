@@ -76,9 +76,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\FilterControl.xaml.cs">
+      <DependentUpon>FilterControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\VisibilityConverter.cs" />
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Video.cs" />
     <Compile Include="Entities\VideoPage.cs" />
+    <Compile Include="HelperClasses\Tag.cs" />
     <Compile Include="Services\AwEmpireApiVideoService.cs" />
     <Compile Include="Services\BasicIPService.cs" />
     <Compile Include="Services\IAddressService.cs" />
@@ -96,6 +101,10 @@
     <Compile Include="Views\VideoListView.xaml.cs">
       <DependentUpon>VideoListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\FilterControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Style\MainStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

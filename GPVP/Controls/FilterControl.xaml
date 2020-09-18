@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="GPVP.Controls.FilterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GPVP.Controls"
+             xmlns:convertes="clr-namespace:GPVP.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <convertes:VisibilityConverter x:Key="visibilityConverter" />
+        <DataTemplate x:Key="TagTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}"/>
+                <CheckBox IsChecked="{Binding Activated, Mode=TwoWay}" Margin="5,0,0,0"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource BckgrndColor}" x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding FirstFilterValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"/>
+        <ComboBox  Grid.Column="1" ItemsSource="{Binding FirstFilterSource, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
+                   SelectedItem="{Binding FirstComboValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"/>
+
+        <TextBlock Text="{Binding SecondFilterValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" Grid.Column="2"/>
+        <ComboBox  Grid.Column="3" ItemsSource="{Binding SecondFilterSource, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
+                   SelectedItem="{Binding SecondComboValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"/>
+
+        <Button Content="Clear all" Grid.Column="4" 
+                Command="{Binding ClearAllCommand}"/>
+
+        <WrapPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal" 
+                   Visibility="{Binding TagsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}, Converter={StaticResource visibilityConverter}}">
+            <TextBlock Text="Tags: " />
+            <ListBox ItemsSource="{Binding TagFilterList, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
+                     ItemTemplate="{StaticResource TagTemplate}"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </WrapPanel>
+    </Grid>
+</UserControl>
