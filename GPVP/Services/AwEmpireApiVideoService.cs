@@ -6,8 +6,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace GPVP.Services
@@ -48,10 +50,33 @@ namespace GPVP.Services
 
         public async Task<VideoPage> GetVideos( int pageNumber = 1 )
         {
-            var cachedVid = TryGetVideoFromCache(pageNumber);
-            if (cachedVid != null)
-                return cachedVid;
+            //var cachedVid = TryGetVideoFromCache(pageNumber);
+            //if (cachedVid != null)
+            //    return cachedVid;
 
+            return await GetVideosFromApi(pageNumber);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private string configureApiString( int pageNumber = 1 )
+        {
+            var sb = new StringBuilder(apiString);
+            sb.Append($"&pageIndex={pageNumber}");
+            sb.Append("&limit=25");
+
+            return sb.ToString();
+        }
+
+        private VideoPage TryGetVideoFromCache( int pageId )
+        {
+            return VideoCache.Instance.GetVideoPage(pageId);
+        }
+
+        private async Task<VideoPage> GetVideosFromApi(int pageNumber = 1)
+        {
             var configuredString = configureApiString(pageNumber);
 
             HttpResponseMessage response = await client.GetAsync(configuredString);
@@ -65,22 +90,6 @@ namespace GPVP.Services
                 //exception
                 return null;
             }
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private string configureApiString( int pageNumber = 1 )
-        {
-            apiString = $"{apiString}&pageIndex={pageNumber}";
-
-            return apiString;
-        }
-
-        private VideoPage TryGetVideoFromCache( int pageId )
-        {
-            return VideoCache.Instance.GetVideoPage(pageId);
         }
 
         private VideoPage ConvertJsonResult( string response )
@@ -117,9 +126,9 @@ namespace GPVP.Services
             var bw = new BackgroundWorker();
             bw.DoWork += new DoWorkEventHandler((object sender, DoWorkEventArgs e) =>
             {
-                while (VideoCache.Instance.CachedVideoCount < Settings.Default.PageNumberToCache )
+                while (VideoCache.Instance.CachedVideoCount < Settings.Default.PageNumberToCache)
                 {
-                    VideoCache.Instance.UpdateVideoCache(GetVideos(VideoCache.Instance.CachedVideoCount).Result);
+                    VideoCache.Instance.UpdateVideoCache(GetVideosFromApi(VideoCache.Instance.CachedVideoCount + 1).Result);
                 }
             });
             bw.RunWorkerAsync();

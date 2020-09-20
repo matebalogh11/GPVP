@@ -18,22 +18,53 @@
     <SolidColorBrush x:Key="BckgrndColor" Color="#f1f3f4" />
 
 
+
     <!--button styles-->
-    <Style TargetType="{x:Type Button}" x:Key="BtnStyle">
-        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
-        <Setter Property="Foreground" Value="{StaticResource BckgrndColor}" />
+    <Style TargetType="{x:Type Button}" x:Key="BaseButtonStyle">
         <Setter Property="MaxWidth" Value="200" />
         <Setter Property="MaxHeight" Value="80" />
-        <Setter Property="BorderBrush" Value="{x:Null}" />
         <Setter Property="Padding" Value="14,4,14,4" />
         <Setter Property="FontSize" Value="{StaticResource FontHeightMid}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
+    </Style>
+    
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}" x:Key="PrimaryBtnStyle">
+        <Setter Property="Background" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="Foreground" Value="{StaticResource BckgrndColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}" x:Key="SecondaryBtnStyle">
+        <Setter Property="Background" Value="{StaticResource SecondaryColor}" />
+        <Setter Property="Foreground" Value="{StaticResource BckgrndColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}" x:Key="PageBtnStyle">
+        <Setter Property="Background" Value="{StaticResource OptionColor}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontHeightBigBig}"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="0"/>
     </Style>
     
     <!--textblock styles-->
 
     <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlock">
         <Setter Property="FontSize" Value="{StaticResource FontHeightMid}" />
-        <Setter Property="Margin" Value="10" />
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+
+
+    <Style x:Key="ComboBoxFlatStyle"  TargetType="{x:Type ComboBox}">
+        <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+        <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="TextElement.Foreground" Value="Black"/>
+        <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+
 
 </ResourceDictionary>

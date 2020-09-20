@@ -28,7 +28,7 @@ namespace GPVP.HelperClasses
         private VideoCache()
         {
             ThumbnailDict = new Dictionary<string, BitmapImage>();
-            cachedVideoPages = new HashSet<VideoPage>();
+            cachedVideoPages = new Dictionary<int, VideoPage>();
         }
 
         #region Properties
@@ -44,7 +44,7 @@ namespace GPVP.HelperClasses
 
         #region Fields
 
-        private HashSet<VideoPage> cachedVideoPages;
+        private Dictionary<int, VideoPage> cachedVideoPages;
 
         #endregion
 
@@ -53,26 +53,23 @@ namespace GPVP.HelperClasses
 
         public void UpdateVideoCache(VideoPage videoPage)
         {
-            if (!cachedVideoPages.Any(p => p.Videos.Select(v => v.Id).All(videoPage.Videos.Select(v => v.Id).Contains)))
+            foreach (var video in videoPage.Videos)
             {
-                foreach (var video in videoPage.Videos)
+                if (!ThumbnailDict.ContainsKey(video.Id))
                 {
-                    if (!ThumbnailDict.ContainsKey(video.Id))
-                    {
-                        DownloadImage(video.ImgString, video.Id);
-                    }
+                    DownloadImage(video.ImgString, video.Id);
                 }
-                cachedVideoPages.Add(videoPage);
             }
+            cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
         }
 
         public VideoPage GetVideoPage(int pageNumber)
         {
             try
             {
-                if (cachedVideoPages != null)
+                if (cachedVideoPages != null && cachedVideoPages.ContainsKey(pageNumber))
                 {
-                    return cachedVideoPages.FirstOrDefault(v => v.Pagination.CurrentPage == pageNumber);
+                    return cachedVideoPages[pageNumber];
                 }
             }
             catch
@@ -88,18 +85,26 @@ namespace GPVP.HelperClasses
 
         private async void DownloadImage(Uri source, string id)
         {
-            using (var client = new WebClient())
+            try
             {
-                var bytes = await client.DownloadDataTaskAsync(source);
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.StreamSource = new MemoryStream(bytes);
-                image.EndInit();
+                using (var client = new WebClient())
+                {
+                    var bytes = await client.DownloadDataTaskAsync(source);
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = new MemoryStream(bytes);
+                    image.EndInit();
 
-                image.Freeze();
-                if (!ThumbnailDict.ContainsKey(id))
-                    ThumbnailDict.Add(id, image);
+                    image.Freeze();
+                    if (!ThumbnailDict.ContainsKey(id))
+                        ThumbnailDict.Add(id, image);
+                }
+
+            }
+            catch( WebException ex )
+            {
+                
             }
         }
 

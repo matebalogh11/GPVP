@@ -11,9 +11,6 @@
     <Setting Name="LongLegth" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">300</Value>
     </Setting>
-    <Setting Name="PageNumberToCache" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">50</Value>
-    </Setting>
     <Setting Name="ApiDataString" Type="System.String" Scope="Application">
       <Value Profile="(Default)">data</Value>
     </Setting>
@@ -22,6 +19,12 @@
     </Setting>
     <Setting Name="ApiPaginationString" Type="System.String" Scope="Application">
       <Value Profile="(Default)">pagination</Value>
+    </Setting>
+    <Setting Name="PageNumberToCache" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="ApiBaseString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">"https://pt.potawe.com/api/video-promotion/v1/list?psid=dobokocka&amp;pstool=421_1&amp;accessKey=6f693a549638e75423bd71e0ee4dc7b0&amp;ms_notrack=1&amp;campaign_id=&amp;type=&amp;sexualOrientation=straight&amp;primaryColor=%238AC437&amp;labelColor=%23212121&amp;clientIp={0}"</Value>
     </Setting>
   </Settings>
 </SettingsFile>

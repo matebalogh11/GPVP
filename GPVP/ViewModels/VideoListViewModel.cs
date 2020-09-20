@@ -155,21 +155,34 @@ namespace GPVP.ViewModels
 
         private void LoadVideos( int pageNumber = 1)
         {
-            Application.Current.Dispatcher.Invoke( async () => 
+            var result = VideoCache.Instance.GetVideoPage(pageNumber);
+            if ( result != null )
             {
-                var videoPage = await videoService.GetVideos(pageNumber);
-                OriginalVideoList = new List<Video>(videoPage.Videos);
-                VideoList = videoPage.Videos;
-                ActualPage = videoPage.Pagination;
-                PageNumber = ActualPage.CurrentPage;
-                TotalPages = ActualPage.TotalPages;
+                SetVideoProperties(result);
+            }
+            else
+            {
+                Application.Current.Dispatcher.Invoke( async () => 
+                {
+                    var videoPage = await videoService.GetVideos(pageNumber);
+                    SetVideoProperties(videoPage);
+                });
+            }
+        }
 
-                FillQualityList();
-                FillTagList();
+        private void SetVideoProperties( VideoPage videoPage )
+        {
+            OriginalVideoList = new List<Video>(videoPage.Videos);
+            VideoList = videoPage.Videos;
+            ActualPage = videoPage.Pagination;
+            PageNumber = ActualPage.CurrentPage;
+            TotalPages = ActualPage.TotalPages;
 
-                RaisePropertyChanged(nameof(NextBtnEnabled));
-                RaisePropertyChanged(nameof(PrevBtnEnabled));
-            });
+            FillQualityList();
+            FillTagList();
+
+            RaisePropertyChanged(nameof(NextBtnEnabled));
+            RaisePropertyChanged(nameof(PrevBtnEnabled));
         }
 
         private void FillQualityList()

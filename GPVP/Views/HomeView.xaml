@@ -7,6 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{StaticResource BckgrndColor}">
-        <TextBlock Text="GPVP Home page" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="GPVP Home page" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" 
+                   Style="{StaticResource BaseTextBlock}" Margin="20"/>
+        <Image Grid.Row="1" Source="/Resources/Images/guineaPigImg.png" 
+               Stretch="None" RenderOptions.BitmapScalingMode="Fant" Width="400"/>
     </Grid>
 </UserControl>

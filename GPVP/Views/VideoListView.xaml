@@ -73,21 +73,24 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Content="←" Background="Transparent" 
+            <Button Content="←" 
                     Command="{Binding ChangePageCommand}" 
-                    CommandParameter="p" IsEnabled="{Binding PrevBtnEnabled}"
-                    Width="50" Height="20"/>
+                    CommandParameter="p"
+                    IsEnabled="{Binding PrevBtnEnabled}"
+                    Style="{StaticResource PageBtnStyle}"
+                    Margin="0,0,30,0"/>
             <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10,0,10,0">
-                <TextBlock Text="Page: "/>
-                <TextBlock Text="{Binding PageNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="/"/>
-                <TextBlock Text="{Binding TotalPages, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Page: " Style="{StaticResource BaseTextBlock}"/>
+                <TextBlock Text="{Binding PageNumber, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource BaseTextBlock}"/>
+                <TextBlock Text="/" Style="{StaticResource BaseTextBlock}" Margin="0"/>
+                <TextBlock Text="{Binding TotalPages, UpdateSourceTrigger=PropertyChanged}"  Style="{StaticResource BaseTextBlock}"/>
             </StackPanel>
-            <Button Content="→" Grid.Column="2" 
-                    Background="Transparent" 
+            <Button Content="→" Grid.Column="2"      
                     Command="{Binding ChangePageCommand}" 
-                    CommandParameter="n" IsEnabled="{Binding NextBtnEnabled}"
-                    Width="50" Height="20"/>
+                    CommandParameter="n"
+                    IsEnabled="{Binding NextBtnEnabled}"
+                    Style="{StaticResource PageBtnStyle}"
+                    Margin="30,0,0,0"/>
         </Grid>
     </Grid>
 </UserControl>

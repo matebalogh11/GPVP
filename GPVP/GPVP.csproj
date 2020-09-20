@@ -83,6 +83,7 @@
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Video.cs" />
     <Compile Include="Entities\VideoPage.cs" />
+    <Compile Include="HelperClasses\Dictionary.cs" />
     <Compile Include="HelperClasses\VideoCache.cs" />
     <Compile Include="HelperClasses\Tag.cs" />
     <Compile Include="Services\AwEmpireApiVideoService.cs" />
@@ -172,7 +173,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\guineaPigImg.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="baseline_slideshow_black_18dp.ico" />
   </ItemGroup>

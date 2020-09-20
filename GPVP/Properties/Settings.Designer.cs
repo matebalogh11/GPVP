@@ -52,15 +52,6 @@ namespace GPVP.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("50")]
-        public int PageNumberToCache {
-            get {
-                return ((int)(this["PageNumberToCache"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("data")]
         public string ApiDataString {
             get {
@@ -83,6 +74,26 @@ namespace GPVP.Properties {
         public string ApiPaginationString {
             get {
                 return ((string)(this["ApiPaginationString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public int PageNumberToCache {
+            get {
+                return ((int)(this["PageNumberToCache"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"https://pt.potawe.com/api/video-promotion/v1/list?psid=dobokocka&pstool=421_1&ac" +
+            "cessKey=6f693a549638e75423bd71e0ee4dc7b0&ms_notrack=1&campaign_id=&type=&sexualO" +
+            "rientation=straight&primaryColor=%238AC437&labelColor=%23212121&clientIp={0}\"")]
+        public string ApiBaseString {
+            get {
+                return ((string)(this["ApiBaseString"]));
             }
         }
     }
