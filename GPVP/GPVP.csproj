@@ -83,6 +83,7 @@
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Video.cs" />
     <Compile Include="Entities\VideoPage.cs" />
+    <Compile Include="HelperClasses\VideoCache.cs" />
     <Compile Include="HelperClasses\Tag.cs" />
     <Compile Include="Services\AwEmpireApiVideoService.cs" />
     <Compile Include="Services\BasicIPService.cs" />

@@ -10,14 +10,12 @@
     <UserControl.Resources>
         <convertes:VisibilityConverter x:Key="visibilityConverter" />
         <DataTemplate x:Key="TagTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Name}"/>
-                <CheckBox IsChecked="{Binding Activated, Mode=TwoWay}" Margin="5,0,0,0"/>
-            </StackPanel>
+            <ToggleButton Content="{Binding Name}" IsThreeState="False" IsChecked="{Binding Activated, Mode=TwoWay}"/>
         </DataTemplate>
     </UserControl.Resources>
     <Grid Background="{StaticResource BckgrndColor}" x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -38,21 +36,25 @@
                    SelectedItem="{Binding SecondComboValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"/>
 
         <Button Content="Clear all" Grid.Column="4" 
-                Command="{Binding ClearAllCommand}"/>
+                Command="{Binding ClearCommand, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"/>
 
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="5" Orientation="Horizontal" 
-                   Visibility="{Binding TagsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}, Converter={StaticResource visibilityConverter}}">
-            <TextBlock Text="Tags: " />
-            <ListBox ItemsSource="{Binding TagFilterList, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
-                     ItemTemplate="{StaticResource TagTemplate}"
-                     ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
-        </WrapPanel>
+        <ToggleButton Content="Hide tags" x:Name="TagToggle" IsThreeState="False" IsChecked="false" Grid.Column="5"/>
+
+        <Grid Visibility="{Binding ElementName=TagToggle, Path=IsChecked, Converter={StaticResource visibilityConverter}}">
+            <WrapPanel  Orientation="Horizontal"  Grid.Row="1" Grid.ColumnSpan="6"
+                        Visibility="{Binding TagsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}, Converter={StaticResource visibilityConverter}}">
+                <TextBlock Text="Tags: " />
+                <ListBox ItemsSource="{Binding TagFilterList, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
+                            ItemTemplate="{StaticResource TagTemplate}"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"  >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </WrapPanel>
+        </Grid>
     </Grid>
 </UserControl>

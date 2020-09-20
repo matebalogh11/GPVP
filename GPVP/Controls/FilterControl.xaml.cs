@@ -148,5 +148,18 @@ namespace GPVP.Controls
             }));
 
         #endregion
+
+        public ICommand ClearCommand
+        {
+            get { return (ICommand)GetValue(ClearCommandProperty); }
+            set { SetValue(ClearCommandProperty, value); }
+        }
+
+        public static readonly DependencyProperty ClearCommandProperty =
+            DependencyProperty.Register(nameof(ClearCommand), typeof(ICommand), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
+            {
+                var FC = S as FilterControl;
+                FC.ClearCommand = (ICommand)E.NewValue;
+            }));
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GPVP.Entities
 {
@@ -12,6 +14,7 @@ namespace GPVP.Entities
         public string ProfileImage { get; set; }
         public string CoverImage { get; set; }
         public string[] PreviewImages { get; set; }
+
         public string TargetUrl { get; set; }
         public string DetailsUrl { get; set; }
         public string Quality { get; set; }
@@ -19,19 +22,25 @@ namespace GPVP.Entities
         public string Uploader { get; set; }
         public string UploaderLink { get; set; }
 
-        public Uri Thumbnail
+        public Uri ImgString
         {
             get 
             {
-                var chexk = new Uri(PreviewImages[0], UriKind.RelativeOrAbsolute);
                 if (PreviewImages.Length > 0)
                 {
                     string asd = "http://www." + PreviewImages[0].Substring(2);
                     return new Uri(asd, UriKind.Absolute);
                 }
 
-                return null;
+                return new Uri(""); //TODO default local image
             }
+        }
+
+        public BitmapImage CachedImage { get; set; }
+
+        public bool CachedImgIsNull
+        {
+            get { return CachedImage == null; }
         }
     }
 

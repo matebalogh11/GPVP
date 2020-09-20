@@ -1,12 +1,13 @@
 ﻿using GPVP.Entities;
+using GPVP.HelperClasses;
+using GPVP.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GPVP.Services
@@ -34,6 +35,8 @@ namespace GPVP.Services
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+
+            StartLoadingVideosAsync();
         }
 
         #region Interface
@@ -43,27 +46,30 @@ namespace GPVP.Services
             throw new NotImplementedException();
         }
 
-        public async Task<VideoPage> GetVideos( int pageNumber = 1)
+        public async Task<VideoPage> GetVideos( int pageNumber = 1 )
         {
-            var result = new VideoPage();
+            var cachedVid = TryGetVideoFromCache(pageNumber);
+            if (cachedVid != null)
+                return cachedVid;
+
             var configuredString = configureApiString(pageNumber);
 
             HttpResponseMessage response = await client.GetAsync(configuredString);
             if (response.IsSuccessStatusCode)
             {
                 var responseString = await response.Content.ReadAsStringAsync();
-                JObject jObject = JObject.Parse(responseString);
-
-                JObject data = (JObject)jObject["data"];
-                JArray videos = (JArray)data["videos"];
-                var page = data["pagination"];
-
-                result.Videos = JsonConvert.DeserializeObject<Video[]>(videos.ToString());
-                result.Pagination = JsonConvert.DeserializeObject<Page>(page.ToString());
-                return result;
+                return ConvertJsonResult(responseString);
             }
-            return result;
+            else
+            {
+                //exception
+                return null;
+            }
         }
+
+        #endregion
+
+        #region Private methods
 
         private string configureApiString( int pageNumber = 1 )
         {
@@ -72,6 +78,54 @@ namespace GPVP.Services
             return apiString;
         }
 
+        private VideoPage TryGetVideoFromCache( int pageId )
+        {
+            return VideoCache.Instance.GetVideoPage(pageId);
+        }
+
+        private VideoPage ConvertJsonResult( string response )
+        {
+            var result = new VideoPage { Videos = new List<Video>(), Pagination = new Page() };
+            try
+            {
+                JObject responseObject = JObject.Parse(response);
+
+                JObject dataJson = (JObject)responseObject[Settings.Default.ApiDataString];
+                JArray videoJsonArray = (JArray)dataJson[Settings.Default.ApiVideoString];
+                var pageJson = dataJson[Settings.Default.ApiPaginationString];
+
+                result.Videos = JsonConvert.DeserializeObject<Video[]>(videoJsonArray.ToString());
+                result.Pagination = JsonConvert.DeserializeObject<Page>(pageJson.ToString());
+            }
+            catch( JsonReaderException jrex )
+            {
+                //different exceptions throw
+            }
+            catch(KeyNotFoundException knfex)
+            {
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        private void StartLoadingVideosAsync()
+        {
+            var bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler((object sender, DoWorkEventArgs e) =>
+            {
+                while (VideoCache.Instance.CachedVideoCount < Settings.Default.PageNumberToCache )
+                {
+                    VideoCache.Instance.UpdateVideoCache(GetVideos(VideoCache.Instance.CachedVideoCount).Result);
+                }
+            });
+            bw.RunWorkerAsync();
+        }
+
         #endregion
+
     }
 }

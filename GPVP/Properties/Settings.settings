@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GPVP.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ShortLength" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">180</Value>
+    </Setting>
+    <Setting Name="MediumLength" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="LongLegth" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="PageNumberToCache" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="ApiDataString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">data</Value>
+    </Setting>
+    <Setting Name="ApiVideoString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">videos</Value>
+    </Setting>
+    <Setting Name="ApiPaginationString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">pagination</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

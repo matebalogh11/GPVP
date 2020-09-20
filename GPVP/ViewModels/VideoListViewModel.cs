@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using GPVP.Entities;
 using GPVP.HelperClasses;
+using GPVP.Properties;
 using GPVP.Services;
 using GPVP.ViewModels.Interfaces;
 using System;
@@ -14,6 +15,8 @@ namespace GPVP.ViewModels
 {
     public class VideoListViewModel : ViewModelBase, IPageViewModel
     {
+        #region Properties
+
         public Page ActualPage { get; set; }
 
         public IEnumerable<Video> OriginalVideoList { get; set; }
@@ -62,8 +65,11 @@ namespace GPVP.ViewModels
             set
             {
                 if (value != videoList)
+                {
+                    SetCachedImages(value);
                     videoList = value;
-                RaisePropertyChanged(nameof(VideoList));
+                    RaisePropertyChanged(nameof(VideoList));
+                }
             }
         }
 
@@ -127,7 +133,15 @@ namespace GPVP.ViewModels
             }
         }
 
+
+        #endregion
+
+        #region Fields
+
         private IVideoService videoService;
+
+        #endregion
+
         public VideoListViewModel()
         {
             ActualPage = new Page();
@@ -136,6 +150,8 @@ namespace GPVP.ViewModels
             DurationList = new List<string> { VideoLength.Short.ToString(), VideoLength.Medium.ToString(), VideoLength.Long.ToString() };
             LoadVideos();
         }
+
+        #region Private methods
 
         private void LoadVideos( int pageNumber = 1)
         {
@@ -181,6 +197,52 @@ namespace GPVP.ViewModels
             if ( sender is Tag tag)
                 SetFilteredVideoList();
         }
+
+        private void SetFilteredVideoList()
+        {
+            var result = OriginalVideoList.Where(o => o.Quality == (string.IsNullOrEmpty(selectedQuality) ? o.Quality : selectedQuality)
+                                                   && o.Tags.Any(t => VideoTagList.Where(g => g.Activated).Select(g => g.Name).Contains(t))
+                                                   && GetVideoIdsByDuration(SelectedDuration).Contains(o.Id));
+
+            VideoList = result;
+        }
+
+        private IEnumerable<Video> GetVideoByDuration(string length)
+        {
+            IEnumerable<Video> result = new List<Video>(OriginalVideoList);
+            if (!string.IsNullOrEmpty(length))
+            {
+                switch (Enum.Parse(typeof(VideoLength), length))
+                {
+                    case VideoLength.Short:
+                        result = OriginalVideoList.Where(v => v.Duration <= Settings.Default.ShortLength);
+                        break;
+                    case VideoLength.Medium:
+                        result = OriginalVideoList.Where(v => v.Duration > Settings.Default.ShortLength && v.Duration < Settings.Default.LongLegth);
+                        break;
+                    case VideoLength.Long:
+                        result = OriginalVideoList.Where(v => v.Duration > Settings.Default.LongLegth);
+                        break;
+                }
+            }
+            return result;
+        }
+
+        private IEnumerable<string> GetVideoIdsByDuration(string length)
+        {
+            return GetVideoByDuration(length).Select(v => v.Id);
+        }
+
+        private void SetCachedImages(IEnumerable<Video> videos)
+        {
+            foreach (var video in videos)
+            {
+                if (VideoCache.Instance.ThumbnailDict.ContainsKey(video.Id))
+                    video.CachedImage = VideoCache.Instance.ThumbnailDict[video.Id];
+            }
+        }
+
+        #endregion
 
         #region Commands
 
@@ -231,46 +293,11 @@ namespace GPVP.ViewModels
 
         #endregion
 
-        private void SetFilteredVideoList()
-        {
-            var result = OriginalVideoList.Where(o => o.Quality == (string.IsNullOrEmpty(selectedQuality) ? o.Quality : selectedQuality)
-                                                   && o.Tags.Any(t => VideoTagList.Where(g => g.Activated).Select(g => g.Name).Contains(t))
-                                                   && GetVideoIdsByDuration(SelectedDuration).Contains(o.Id));
-
-            VideoList = result;
-        }
-
-        private IEnumerable<Video> GetVideoByDuration( string length )
-        {
-            IEnumerable<Video> result = new List<Video>(OriginalVideoList);
-            if (!string.IsNullOrEmpty(length))
-            {
-                switch (Enum.Parse(typeof(VideoLength), length))
-                {
-                    case VideoLength.Short:
-                        result = OriginalVideoList.Where(v => v.Duration <= (int)VideoLength.Short);
-                        break;
-                    case VideoLength.Medium:
-                        result = OriginalVideoList.Where(v => v.Duration > (int)VideoLength.Short && v.Duration < (int)VideoLength.Long);
-                        break;
-                    case VideoLength.Long:
-                        result = OriginalVideoList.Where(v => v.Duration > (int)VideoLength.Long);
-                        break;
-                }
-            }
-            return result;
-        }
-
-        private IEnumerable<string> GetVideoIdsByDuration( string length )
-        {
-            return GetVideoByDuration(length).Select(v => v.Id);
-        }
-
         public enum VideoLength
         {
-            Short = 180,
-            Medium = 240,
-            Long = 300
+            Short,
+            Medium,
+            Long
         }
     }
 }
