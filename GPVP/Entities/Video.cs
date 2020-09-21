@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Media;
+using System.Linq;
 using System.Windows.Media.Imaging;
 
 namespace GPVP.Entities
@@ -14,7 +14,6 @@ namespace GPVP.Entities
         public string ProfileImage { get; set; }
         public string CoverImage { get; set; }
         public string[] PreviewImages { get; set; }
-
         public string TargetUrl { get; set; }
         public string DetailsUrl { get; set; }
         public string Quality { get; set; }
@@ -42,6 +41,19 @@ namespace GPVP.Entities
         {
             get { return CachedImage == null; }
         }
-    }
 
+        public string TagPeek
+        {
+            get
+            {
+                if ( Tags != null && Tags.Count() > 0 )
+                {
+                    return Tags.Count() < 3 ? string.Join(", ", Tags.Take(Tags.Count())) : string.Join(", ", Tags.Take(3)) + "...";
+                }
+                return string.Empty;
+            }
+        }
+
+        public string DurationString => $"{Duration} min.";
+    }
 }

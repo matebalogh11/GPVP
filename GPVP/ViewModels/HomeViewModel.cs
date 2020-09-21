@@ -8,7 +8,7 @@ namespace GPVP.ViewModels
 {
     public class HomeViewModel : ViewModelBase, IPageViewModel
     {
-        public string Name => "Home";
+        public string Name => Properties.Displayresource.HomePageName;
 
         public int Year => DateTime.Now.Year;
 
@@ -18,7 +18,7 @@ namespace GPVP.ViewModels
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 var fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
-                return $"Version: {fileVersion.ProductVersion}";
+                return $"{Properties.Displayresource.VersionTag}{fileVersion.ProductVersion}";
             }
         }
     }

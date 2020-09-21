@@ -31,12 +31,13 @@
         <TextBlock Text="{Binding FirstFilterValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" Style="{StaticResource BaseTextBlock}"/>
         <ComboBox  Grid.Column="1" ItemsSource="{Binding FirstFilterSource, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
                    SelectedItem="{Binding FirstComboValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"
-                   Height="30" Width="100" HorizontalAlignment="Left" Margin="0,0,20,0"/>
+                   Height="30" Width="100" HorizontalAlignment="Left" Margin="0,0,20,0" Style="{StaticResource ComboBoxFlatStyle}"/>
 
         <TextBlock Text="{Binding SecondFilterValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" Grid.Column="2" Style="{StaticResource BaseTextBlock}"/>
         <ComboBox  Grid.Column="3" ItemsSource="{Binding SecondFilterSource, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 
                    SelectedItem="{Binding SecondComboValue, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}"
-                   Width="100" Height="30"/>
+                   Width="100" Height="30"
+                   Style="{StaticResource ComboBoxFlatStyle}"/>
 
         <Button Content="Clear all" Grid.Column="5" Style="{StaticResource PrimaryBtnStyle}" Width="100" Height="50" HorizontalAlignment="Right"
                 Command="{Binding ClearCommand, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" Margin="0,0,10,0"/>
@@ -44,7 +45,8 @@
         <ToggleButton Content="Tags" x:Name="TagToggle" IsThreeState="False" IsChecked="True" Grid.Column="6" Width="100" Height="50"
                       FontSize="{StaticResource FontHeightMid}" Padding="14,4,14,4" Background="{StaticResource SecondaryColor}" Margin="0,0,10,0"/>
 
-        <Grid Visibility="{Binding ElementName=TagToggle, Path=IsChecked, Converter={StaticResource visibilityConverter}}"  Grid.Row="1" Grid.ColumnSpan="7">
+        <Grid Visibility="{Binding ElementName=TagToggle, Path=IsChecked, Converter={StaticResource visibilityConverter}}"  
+              Grid.Row="1" Grid.ColumnSpan="7" Margin="0,10,0,0">
             <WrapPanel  Orientation="Horizontal"  
                         Visibility="{Binding TagsVisible, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}, Converter={StaticResource visibilityConverter}}">
                 <ListBox ItemsSource="{Binding TagFilterList, RelativeSource={RelativeSource AncestorType={x:Type local:FilterControl}}}" 

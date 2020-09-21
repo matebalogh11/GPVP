@@ -68,5 +68,68 @@ namespace GPVP.Properties {
                 return ResourceManager.GetString("AppName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration:.
+        /// </summary>
+        internal static string DurationTag {
+            get {
+                return ResourceManager.GetString("DurationTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string HomePageName {
+            get {
+                return ResourceManager.GetString("HomePageName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quality:.
+        /// </summary>
+        internal static string QualityTag {
+            get {
+                return ResourceManager.GetString("QualityTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags: .
+        /// </summary>
+        internal static string TagsTag {
+            get {
+                return ResourceManager.GetString("TagsTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title:.
+        /// </summary>
+        internal static string TitleTag {
+            get {
+                return ResourceManager.GetString("TitleTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploader: .
+        /// </summary>
+        internal static string UploaderTag {
+            get {
+                return ResourceManager.GetString("UploaderTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version: .
+        /// </summary>
+        internal static string VersionTag {
+            get {
+                return ResourceManager.GetString("VersionTag", resourceCulture);
+            }
+        }
     }
 }

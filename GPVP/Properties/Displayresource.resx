@@ -120,4 +120,25 @@
   <data name="AppName" xml:space="preserve">
     <value>GPVP</value>
   </data>
+  <data name="DurationTag" xml:space="preserve">
+    <value>Duration:</value>
+  </data>
+  <data name="HomePageName" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="QualityTag" xml:space="preserve">
+    <value>Quality:</value>
+  </data>
+  <data name="TagsTag" xml:space="preserve">
+    <value>Tags: </value>
+  </data>
+  <data name="TitleTag" xml:space="preserve">
+    <value>Title:</value>
+  </data>
+  <data name="UploaderTag" xml:space="preserve">
+    <value>Uploader: </value>
+  </data>
+  <data name="VersionTag" xml:space="preserve">
+    <value>Version: </value>
+  </data>
 </root>
