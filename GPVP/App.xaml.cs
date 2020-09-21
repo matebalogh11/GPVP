@@ -1,7 +1,5 @@
 ﻿using GPVP.HelperClasses;
 using GPVP.Properties;
-using System;
-using System.Linq;
 using System.Windows;
 
 namespace GPVP

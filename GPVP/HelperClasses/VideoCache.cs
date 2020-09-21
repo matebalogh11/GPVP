@@ -73,7 +73,9 @@ namespace GPVP.HelperClasses
                         }
                     }
                 }
-                cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
+
+                if ( !cachedVideoPages.ContainsKey(videoPage.Pagination.CurrentPage))
+                    cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
             }
             catch
             {

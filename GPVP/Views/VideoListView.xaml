@@ -66,7 +66,8 @@
                                 SecondFilterValue="Duration: "
                                 TagFilterList="{Binding VideoTagList}"
                                 TagsVisible="{Binding TagsVisible}"
-                                ClearCommand="{Binding ClearAllCommand}"/>
+                                ClearCommand="{Binding ClearAllCommand}"
+                                SearchBoxValue="{Binding SearchText, Mode=TwoWay}"/>
         
         <ListBox Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                  HorizontalContentAlignment="Left" 

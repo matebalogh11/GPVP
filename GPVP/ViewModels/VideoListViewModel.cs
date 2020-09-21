@@ -133,6 +133,23 @@ namespace GPVP.ViewModels
             }
         }
 
+        private string searchText;
+        public string SearchText
+        {
+            get { return searchText; }
+            set
+            {
+                searchText = value;
+                if ( string.IsNullOrEmpty(searchText))
+                    SetFilteredVideoList();
+                else
+                {
+                    if (searchText.Length > 3 )
+                        SetFilteredVideoList();
+                }
+            }
+        }
+
 
         #endregion
 
@@ -223,7 +240,8 @@ namespace GPVP.ViewModels
         {
             var result = OriginalVideoList.Where(o => o.Quality == (string.IsNullOrEmpty(selectedQuality) ? o.Quality : selectedQuality)
                                                    && o.Tags.Any(t => VideoTagList.Where(g => g.Activated).Select(g => g.Name).Contains(t))
-                                                   && GetVideoIdsByDuration(SelectedDuration).Contains(o.Id));
+                                                   && GetVideoIdsByDuration(SelectedDuration).Contains(o.Id)
+                                                   && o.Title.ToLower().Contains((string.IsNullOrEmpty(searchText) ? o.Title.ToLower() : searchText.ToLower())));
 
             VideoList = result;
         }

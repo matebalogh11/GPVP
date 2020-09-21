@@ -39,8 +39,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty TagsVisibleProperty =
             DependencyProperty.Register(nameof(TagsVisible), typeof(bool), typeof(FilterControl), new UIPropertyMetadata(true, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.TagsVisible = (bool)E.NewValue;
+                var FC = S as FilterControl;
+                FC.TagsVisible = (bool)E.NewValue;
             }));
 
 
@@ -53,8 +53,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty TagFilterListProperty =
             DependencyProperty.Register(nameof(TagFilterList), typeof(List<Tag>), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.TagFilterList = (List<Tag>)E.NewValue;
+                var FC = S as FilterControl;
+                FC.TagFilterList = (List<Tag>)E.NewValue;
             }));
 
         #endregion
@@ -70,8 +70,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty FirstFilterValueProperty =
             DependencyProperty.Register(nameof(FirstFilterValue), typeof(string), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.FirstFilterValue = (string)E.NewValue;
+                var FC = S as FilterControl;
+                FC.FirstFilterValue = (string)E.NewValue;
             }));
 
 
@@ -84,8 +84,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty SecondFilterValueProperty =
             DependencyProperty.Register(nameof(SecondFilterValue), typeof(string), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.SecondFilterValue = (string)E.NewValue;
+                var FC = S as FilterControl;
+                FC.SecondFilterValue = (string)E.NewValue;
             }));
 
         #endregion
@@ -102,8 +102,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty FirstFilterSourceProperty =
             DependencyProperty.Register(nameof(FirstFilterSource), typeof(IEnumerable<string>), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.FirstFilterSource = (IEnumerable<string>)E.NewValue;
+                var FC = S as FilterControl;
+                FC.FirstFilterSource = (IEnumerable<string>)E.NewValue;
             }));
 
 
@@ -116,8 +116,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty SecondFilterSourceProperty =
             DependencyProperty.Register(nameof(SecondFilterSource), typeof(IEnumerable<string>), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.SecondFilterSource = (IEnumerable<string>)E.NewValue;
+                var FC = S as FilterControl;
+                FC.SecondFilterSource = (IEnumerable<string>)E.NewValue;
             }));
 
 
@@ -130,8 +130,8 @@ namespace GPVP.Controls
         public static readonly DependencyProperty FirstComboValueProperty =
             DependencyProperty.Register(nameof(FirstComboValue), typeof(string), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.FirstComboValue = (string)E.NewValue;
+                var FC = S as FilterControl;
+                FC.FirstComboValue = (string)E.NewValue;
             }));
 
 
@@ -144,11 +144,24 @@ namespace GPVP.Controls
         public static readonly DependencyProperty SecondComboValueProperty =
             DependencyProperty.Register(nameof(SecondComboValue), typeof(string), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
             {
-                var TBT = S as FilterControl;
-                TBT.SecondComboValue = (string)E.NewValue;
+                var FC = S as FilterControl;
+                FC.SecondComboValue = (string)E.NewValue;
             }));
 
         #endregion
+
+        public string SearchBoxValue
+        {
+            get { return (string)GetValue(SearchBoxValueProperty); }
+            set { SetValue(SearchBoxValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty SearchBoxValueProperty =
+            DependencyProperty.Register(nameof(SearchBoxValue), typeof(string), typeof(FilterControl), new UIPropertyMetadata(null, (S, E) =>
+            {
+                var FC = S as FilterControl;
+                FC.SearchBoxValue = (string)E.NewValue;
+            }));
 
         public ICommand ClearCommand
         {
