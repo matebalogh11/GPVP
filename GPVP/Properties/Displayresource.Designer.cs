@@ -70,6 +70,15 @@ namespace GPVP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear all.
+        /// </summary>
+        internal static string ClearAll {
+            get {
+                return ResourceManager.GetString("ClearAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration:.
         /// </summary>
         internal static string DurationTag {
@@ -97,6 +106,15 @@ namespace GPVP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        internal static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tags: .
         /// </summary>
         internal static string TagsTag {
@@ -115,6 +133,15 @@ namespace GPVP.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unhandled exepction:.
+        /// </summary>
+        internal static string UnhandledEx {
+            get {
+                return ResourceManager.GetString("UnhandledEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploader: .
         /// </summary>
         internal static string UploaderTag {
@@ -129,6 +156,15 @@ namespace GPVP.Properties {
         internal static string VersionTag {
             get {
                 return ResourceManager.GetString("VersionTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

@@ -87,9 +87,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\DialogWindow.xaml.cs">
-      <DependentUpon>DialogWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\FilterControl.xaml.cs">
       <DependentUpon>FilterControl.xaml</DependentUpon>
     </Compile>
@@ -116,10 +113,6 @@
     <Compile Include="Views\VideoListView.xaml.cs">
       <DependentUpon>VideoListView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\DialogWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\FilterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,11 +142,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Displayresource-EN.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Displayresource-EN.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Displayresource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,10 +157,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Displayresource-EN.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Displayresource-EN.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Displayresource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Displayresource.Designer.cs</LastGenOutput>
@@ -195,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="baseline_slideshow_black_18dp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\no-image.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

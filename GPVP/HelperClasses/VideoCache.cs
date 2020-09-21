@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace GPVP.HelperClasses
@@ -56,16 +58,27 @@ namespace GPVP.HelperClasses
 
         #region Public methods
 
-        public void UpdateVideoCache(VideoPage videoPage)
+        public async void UpdateVideoCache(VideoPage videoPage)
         {
-            foreach (var video in videoPage.Videos)
+            try
             {
-                if (!ThumbnailDict.ContainsKey(video.Id))
+                foreach (var video in videoPage.Videos)
                 {
-                    DownloadImage(video.ImgString, video.Id);
+                    if (!ThumbnailDict.ContainsKey(video.Id))
+                    {
+                        var success = await DownloadImage(video.ImgString, video.Id);
+                        if (!success)
+                        {
+                            throw new Exception($"Image download was not successful! Video id: {video.Id}");
+                        }
+                    }
                 }
+                cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
             }
-            cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
+            catch(Exception ex)
+            {
+                //logging needed
+            }
         }
 
         public VideoPage GetVideoPage(int pageNumber)
@@ -89,7 +102,7 @@ namespace GPVP.HelperClasses
         #region Private methods
 
 
-        private async void DownloadImage(Uri source, string id)
+        private async Task<bool> DownloadImage(Uri source, string id)
         {
             try
             {
@@ -105,11 +118,13 @@ namespace GPVP.HelperClasses
                     image.Freeze();
                     if (!ThumbnailDict.ContainsKey(id))
                         ThumbnailDict.Add(id, image);
+
+                    return true;
                 }
             }
-            catch( WebException ex )
+            catch
             {
-                
+                return false;
             }
         }
 
@@ -122,10 +137,22 @@ namespace GPVP.HelperClasses
             {
                 while (CachedVideoCount < Settings.Default.PageNumberToCache)
                 {
-                    var result = await videoService.GetVideoByPageNumberAsync(CachedVideoCount + 1);
-                    UpdateVideoCache(result);
+                    try
+                    {
+                        var result = await videoService.GetVideoByPageNumberAsync(CachedVideoCount + 1);
+                        if ( result != null )
+                            UpdateVideoCache(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Handled exception during caching videos: {ex.Message}",
+                            Displayresource.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                        break;
+                    }
                 }
             });
+
             bw.RunWorkerAsync();
         }
     }

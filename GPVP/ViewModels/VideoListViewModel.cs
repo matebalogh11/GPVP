@@ -146,6 +146,7 @@ namespace GPVP.ViewModels
         {
             ActualPage = new Page();
             videoService = new AwEmpireApiVideoService();
+            VideoTagList = new List<Tag>();
 
             DurationList = new List<string> { VideoLength.Short.ToString(), VideoLength.Medium.ToString(), VideoLength.Long.ToString() };
             LoadVideos();
@@ -172,37 +173,44 @@ namespace GPVP.ViewModels
 
         private void SetVideoProperties( VideoPage videoPage )
         {
-            OriginalVideoList = new List<Video>(videoPage.Videos);
-            VideoList = videoPage.Videos;
-            ActualPage = videoPage.Pagination;
-            PageNumber = ActualPage.CurrentPage;
-            TotalPages = ActualPage.TotalPages;
+            try
+            {
+                OriginalVideoList = new List<Video>(videoPage.Videos);
+                VideoList = videoPage.Videos;
+                ActualPage = videoPage.Pagination;
+                PageNumber = ActualPage.CurrentPage;
+                TotalPages = ActualPage.TotalPages;
 
-            FillQualityList();
-            FillTagList();
+                FillQualityList();
+                FillTagList();
 
-            RaisePropertyChanged(nameof(NextBtnEnabled));
-            RaisePropertyChanged(nameof(PrevBtnEnabled));
+                RaisePropertyChanged(nameof(NextBtnEnabled));
+                RaisePropertyChanged(nameof(PrevBtnEnabled));
+            }
+            catch (Exception e )
+            {
+                MessageBox.Show($"Handled exception during setting video properties: {e.Message}",
+                    Displayresource.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void FillQualityList()
         {
-            var tempList = VideoList.Select(v => v.Quality).Distinct().ToList();
-            tempList.Insert(0, string.Empty);
-
-            VideoQualityList = tempList;
+            VideoQualityList = VideoList.Select(v => v.Quality).Distinct().ToList();
         }
 
         private void FillTagList()
         {
-            var tempList = new List<Tag>();
+            var existingTagNames = VideoTagList.Select(t => t.Name);
             foreach (var tag in OriginalVideoList.SelectMany(o => o.Tags).Distinct())
             {
-                var myTag = new Tag { Name = tag, Activated = true };
-                myTag.ActivateEvent += TagActivityEvent;
-                tempList.Add(myTag);
+                if ( !existingTagNames.Contains(tag) )
+                {
+                    var myTag = new Tag { Name = tag, Activated = true };
+                    myTag.ActivateEvent += TagActivityEvent;
+                    VideoTagList.Add(myTag);
+                }
             }
-            VideoTagList = tempList.OrderBy(t => t.Name).ToList();
         }
 
         private void TagActivityEvent(object sender, EventArgs e)

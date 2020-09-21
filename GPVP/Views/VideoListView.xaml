@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <converters:VisibilityConverter x:Key="visibilityConverter" />
         <DataTemplate x:Key="VideoItemTemplate">
-            <Grid Margin="0,0,-100,0">
+            <Grid Margin="0,0,-50,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -36,15 +36,15 @@
                         Visibility="{Binding CachedImgIsNull, Converter={StaticResource visibilityConverter}}">
                     <Image Source="{Binding ImgString}"/>
                 </Border>
-                <TextBlock Text="{lex:Loc TitleTag}" Grid.Column="1" Margin="0,5,0,0"/>
+                <TextBlock Text="{lex:Loc TitleTag}" Grid.Column="1" Margin="0,5,10,0"/>
                 <TextBlock Text="{Binding Title}" Grid.Column="2" Margin="0,5,0,0" FontWeight="Bold"/>
-                <TextBlock Text="{lex:Loc DurationTag}" Grid.Column="1" Grid.Row="1" Margin="0,0,5,0" />
+                <TextBlock Text="{lex:Loc DurationTag}" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0" />
                 <TextBlock Text="{Binding DurationString}" Grid.Column="2" Grid.Row="1" />
-                <TextBlock Text="{lex:Loc QualityTag}" Grid.Column="1" Grid.Row="2" />
+                <TextBlock Text="{lex:Loc QualityTag}" Grid.Column="1" Grid.Row="2" Margin="0,0,10,0" />
                 <TextBlock Text="{Binding Quality}" Grid.Column="2" Grid.Row="2" />
-                <TextBlock Text="{lex:Loc UploaderTag}" Grid.Column="1" Grid.Row="3" />
+                <TextBlock Text="{lex:Loc UploaderTag}" Grid.Column="1" Grid.Row="3"  Margin="0,0,10,0"/>
                 <TextBlock Text="{Binding Uploader}" Grid.Column="2" Grid.Row="3" />
-                <TextBlock Text="{lex:Loc TagsTag}" Grid.Column="1" Grid.Row="4" />
+                <TextBlock Text="{lex:Loc TagsTag}" Grid.Column="1" Grid.Row="4"  Margin="0,0,10,0"/>
                 <TextBlock Text="{Binding TagPeek}" Grid.Column="2" Grid.Row="4" />
             </Grid>
         </DataTemplate>

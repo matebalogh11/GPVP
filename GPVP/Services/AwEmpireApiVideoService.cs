@@ -37,18 +37,27 @@ namespace GPVP.Services
 
         public async Task<VideoPage> GetVideoByPageNumberAsync( long pageNumber = 1 )
         {
-            string apiString = $"{Settings.Default.StaticAddress}&clientIp={IpAddressHelper.Instance.Ipv4Address}&pageIndex={pageNumber}";
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(apiString))
+            try
             {
-                if (response.IsSuccessStatusCode)
+                string apiString = $"{Settings.Default.StaticAddress}&clientIp={IpAddressHelper.Instance.Ipv4Address}&pageIndex={pageNumber}";
+                using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(apiString))
                 {
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    return ConvertJsonResult(responseString);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var responseString = await response.Content.ReadAsStringAsync();
+                        return ConvertJsonResult(responseString);
+                    }
+                    else
+                    {
+                        //logging
+                        throw new Exception(response.ReasonPhrase);
+                    }
                 }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
+            }
+            catch (Exception e)
+            {
+                //logging
+                throw new Exception($"Exception during API request: {e.Message}");
             }
         }
         #endregion
@@ -69,17 +78,9 @@ namespace GPVP.Services
                 result.Videos = JsonConvert.DeserializeObject<Video[]>(videoJsonArray.ToString());
                 result.Pagination = JsonConvert.DeserializeObject<Page>(pageJson.ToString());
             }
-            catch( JsonReaderException jrex )
-            {
-                //different exceptions throw
-            }
-            catch(KeyNotFoundException knfex)
-            {
-
-            }
             catch(Exception ex)
             {
-
+                throw new Exception($"Exception during response json conversion:{ex.Message}");
             }
             return result;
         }

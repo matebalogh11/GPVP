@@ -27,11 +27,10 @@ namespace GPVP.Entities
             {
                 if (PreviewImages.Length > 0)
                 {
-                    string asd = "http://www." + PreviewImages[0].Substring(2);
-                    return new Uri(asd, UriKind.Absolute);
+                    string uriString = "http://www." + PreviewImages[0].Substring(2);
+                    return new Uri(uriString, UriKind.Absolute);
                 }
-
-                return new Uri(""); //TODO default local image
+                return new Uri("/Resources/Images/no-image.png", UriKind.Relative);
             }
         }
 

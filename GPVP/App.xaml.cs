@@ -1,6 +1,7 @@
 ﻿using GPVP.HelperClasses;
 using GPVP.Properties;
-using GPVP.Services;
+using System;
+using System.Linq;
 using System.Windows;
 
 namespace GPVP
@@ -20,6 +21,18 @@ namespace GPVP
             InitWindow();
         }
 
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            foreach (var img in VideoCache.Instance.ThumbnailDict)
+            {
+                if ( img.Value.StreamSource != null)
+                    img.Value.StreamSource.Dispose();
+            }
+
+            base.OnExit(e);
+        }
+
         private void InitWindow()
         {
             var mainWindow = new Views.ApplicationView();
@@ -28,6 +41,12 @@ namespace GPVP
             Current.MainWindow = mainWindow;
             Current.MainWindow.Title = Displayresource.AppName;
             Current.MainWindow.Show();
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show($"{Displayresource.UnhandledEx} {e.Exception.Message}", 
+                Displayresource.Warning, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
