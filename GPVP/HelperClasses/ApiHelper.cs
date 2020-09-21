@@ -11,8 +11,10 @@ namespace GPVP.HelperClasses
 
         public static void InitializeClinet()
         {
-            ApiClient = new HttpClient();
-            ApiClient.BaseAddress = new Uri(Settings.Default.BaseAddress);
+            ApiClient = new HttpClient
+            {
+                BaseAddress = new Uri(Settings.Default.BaseAddress)
+            };
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

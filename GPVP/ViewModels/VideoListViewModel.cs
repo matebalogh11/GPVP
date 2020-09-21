@@ -138,7 +138,7 @@ namespace GPVP.ViewModels
 
         #region Fields
 
-        private IVideoService videoService;
+        private readonly IVideoService videoService;
 
         #endregion
 
@@ -215,7 +215,7 @@ namespace GPVP.ViewModels
 
         private void TagActivityEvent(object sender, EventArgs e)
         {
-            if ( sender is Tag tag)
+            if ( sender is Tag )
                 SetFilteredVideoList();
         }
 
@@ -273,13 +273,13 @@ namespace GPVP.ViewModels
             get
             {
                 if (changePageCommand == null)
-                    changePageCommand = new RelayCommand<string>(changePageExecute);
+                    changePageCommand = new RelayCommand<string>(ChangePageExecute);
 
                 return changePageCommand;
             }
         }
 
-        private void changePageExecute( string direction )
+        private void ChangePageExecute( string direction )
         {
             switch(direction)
             {
@@ -298,13 +298,13 @@ namespace GPVP.ViewModels
             get
             {
                 if (clearAllCommand == null)
-                    clearAllCommand = new RelayCommand(clearAllExecute);
+                    clearAllCommand = new RelayCommand(ClearAllExecute);
 
                 return clearAllCommand;
             }
         }
         
-        private void clearAllExecute()
+        private void ClearAllExecute()
         {
             SelectedQuality = null;
             SelectedDuration = null;

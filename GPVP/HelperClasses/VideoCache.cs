@@ -49,9 +49,9 @@ namespace GPVP.HelperClasses
 
         #region Fields
 
-        private Dictionary<int, VideoPage> cachedVideoPages;
+        private readonly Dictionary<int, VideoPage> cachedVideoPages;
 
-        private IVideoService videoService;
+        private readonly IVideoService videoService;
 
         #endregion
 
@@ -75,7 +75,7 @@ namespace GPVP.HelperClasses
                 }
                 cachedVideoPages.Add(videoPage.Pagination.CurrentPage, videoPage);
             }
-            catch(Exception ex)
+            catch
             {
                 //logging needed
             }
