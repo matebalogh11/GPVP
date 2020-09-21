@@ -1,15 +1,25 @@
 ﻿using GalaSoft.MvvmLight;
 using GPVP.ViewModels.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace GPVP.ViewModels
 {
     public class HomeViewModel : ViewModelBase, IPageViewModel
     {
         public string Name => "Home";
+
+        public int Year => DateTime.Now.Year;
+
+        public string VersionNumber
+        {
+            get
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                var fileVersion = FileVersionInfo.GetVersionInfo(assembly.Location);
+                return $"Version: {fileVersion.ProductVersion}";
+            }
+        }
     }
 }

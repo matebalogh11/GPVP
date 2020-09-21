@@ -1,4 +1,5 @@
-﻿using GPVP.Properties;
+﻿using GPVP.HelperClasses;
+using GPVP.Properties;
 using GPVP.Services;
 using System.Windows;
 
@@ -12,6 +13,10 @@ namespace GPVP
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            ApiHelper.InitializeClinet();
+            VideoCache.Instance.StartLoadingVideosAsync();
+
             InitWindow();
         }
 

@@ -88,12 +88,24 @@ namespace GPVP.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"https://pt.potawe.com/api/video-promotion/v1/list?psid=dobokocka&pstool=421_1&ac" +
-            "cessKey=6f693a549638e75423bd71e0ee4dc7b0&ms_notrack=1&campaign_id=&type=&sexualO" +
-            "rientation=straight&primaryColor=%238AC437&labelColor=%23212121&clientIp={0}\"")]
-        public string ApiBaseString {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://pt.potawe.com")]
+        public string BaseAddress {
             get {
-                return ((string)(this["ApiBaseString"]));
+                return ((string)(this["BaseAddress"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("/api/video-promotion/v1/list?psid=dobokocka&pstool=421_1&accessKey=6f693a549638e7" +
+            "5423bd71e0ee4dc7b0&ms_notrack=1&campaign_id=&type=&sexualOrientation=straight&fo" +
+            "rcedPerformers=&primaryColor=%238AC437&labelColor=%23212121&limit=25")]
+        public string StaticAddress {
+            get {
+                return ((string)(this["StaticAddress"]));
+            }
+            set {
+                this["StaticAddress"] = value;
             }
         }
     }

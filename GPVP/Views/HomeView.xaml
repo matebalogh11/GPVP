@@ -10,10 +10,21 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
         <TextBlock Text="GPVP Home page" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" 
                    Style="{StaticResource BaseTextBlock}" Margin="20"/>
+        
         <Image Grid.Row="1" Source="/Resources/Images/guineaPigImg.png" 
                Stretch="None" RenderOptions.BitmapScalingMode="Fant" Width="400"/>
+
+        <StackPanel Grid.Row="2" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Guinea pig video player"  Style="{StaticResource BaseTextBlock}" />
+            <TextBlock Text="-" Style="{StaticResource BaseTextBlock}"/>
+            <TextBlock Text="{Binding VersionNumber}" Style="{StaticResource BaseTextBlock}" />
+            <TextBlock Text="-" Style="{StaticResource BaseTextBlock}"/>
+            <TextBlock Text="{Binding Year}"  Style="{StaticResource BaseTextBlock}" />
+        </StackPanel>
     </Grid>
 </UserControl>

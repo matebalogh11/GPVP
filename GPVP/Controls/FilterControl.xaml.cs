@@ -1,4 +1,5 @@
-﻿using GPVP.HelperClasses;
+﻿using GPVP.Entities;
+using GPVP.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;

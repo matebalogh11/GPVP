@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 
-namespace GPVP.HelperClasses
+namespace GPVP.Entities
 {
     public class Tag : ObservableObject
     {

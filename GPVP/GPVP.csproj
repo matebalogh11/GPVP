@@ -55,6 +55,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -76,6 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\DialogWindow.xaml.cs">
+      <DependentUpon>DialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FilterControl.xaml.cs">
       <DependentUpon>FilterControl.xaml</DependentUpon>
     </Compile>
@@ -83,12 +90,11 @@
     <Compile Include="Entities\Page.cs" />
     <Compile Include="Entities\Video.cs" />
     <Compile Include="Entities\VideoPage.cs" />
-    <Compile Include="HelperClasses\Dictionary.cs" />
+    <Compile Include="HelperClasses\ApiHelper.cs" />
+    <Compile Include="HelperClasses\IpAddressHelper.cs" />
     <Compile Include="HelperClasses\VideoCache.cs" />
-    <Compile Include="HelperClasses\Tag.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Services\AwEmpireApiVideoService.cs" />
-    <Compile Include="Services\BasicIPService.cs" />
-    <Compile Include="Services\IAddressService.cs" />
     <Compile Include="Services\IVideoService.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -103,6 +109,10 @@
     <Compile Include="Views\VideoListView.xaml.cs">
       <DependentUpon>VideoListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\DialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\FilterControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

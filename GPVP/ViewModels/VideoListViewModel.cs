@@ -164,7 +164,7 @@ namespace GPVP.ViewModels
             {
                 Application.Current.Dispatcher.Invoke( async () => 
                 {
-                    var videoPage = await videoService.GetVideos(pageNumber);
+                    var videoPage = await videoService.GetVideoByPageNumberAsync(pageNumber);
                     SetVideoProperties(videoPage);
                 });
             }

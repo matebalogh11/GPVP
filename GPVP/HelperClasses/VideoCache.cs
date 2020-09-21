@@ -1,8 +1,10 @@
 ﻿using GPVP.Entities;
+using GPVP.Properties;
+using GPVP.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows.Media.Imaging;
 
@@ -29,6 +31,7 @@ namespace GPVP.HelperClasses
         {
             ThumbnailDict = new Dictionary<string, BitmapImage>();
             cachedVideoPages = new Dictionary<int, VideoPage>();
+            videoService = new AwEmpireApiVideoService();
         }
 
         #region Properties
@@ -45,6 +48,8 @@ namespace GPVP.HelperClasses
         #region Fields
 
         private Dictionary<int, VideoPage> cachedVideoPages;
+
+        private IVideoService videoService;
 
         #endregion
 
@@ -83,6 +88,7 @@ namespace GPVP.HelperClasses
 
         #region Private methods
 
+
         private async void DownloadImage(Uri source, string id)
         {
             try
@@ -100,7 +106,6 @@ namespace GPVP.HelperClasses
                     if (!ThumbnailDict.ContainsKey(id))
                         ThumbnailDict.Add(id, image);
                 }
-
             }
             catch( WebException ex )
             {
@@ -109,5 +114,19 @@ namespace GPVP.HelperClasses
         }
 
         #endregion
+
+        public void StartLoadingVideosAsync()
+        {
+            var bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(async (object sender, DoWorkEventArgs e) =>
+            {
+                while (CachedVideoCount < Settings.Default.PageNumberToCache)
+                {
+                    var result = await videoService.GetVideoByPageNumberAsync(CachedVideoCount + 1);
+                    UpdateVideoCache(result);
+                }
+            });
+            bw.RunWorkerAsync();
+        }
     }
 }
